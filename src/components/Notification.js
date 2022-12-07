@@ -21,7 +21,7 @@ const Notification = ({ successMessage, errorMessage }) => {
 
   if (successMessage) {
     return (
-      <div style={successStyle}>
+      <div className='success' style={successStyle}>
         {successMessage}
       </div>
     );
@@ -29,7 +29,7 @@ const Notification = ({ successMessage, errorMessage }) => {
 
   if (errorMessage) {
     return (
-      <div style={errorStyle}>
+      <div className='error' style={errorStyle}>
         {errorMessage}
       </div>
     );

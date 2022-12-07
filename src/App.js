@@ -60,6 +60,7 @@ const App = () => {
       <div>
         Username
         <input
+          id='username-input'
           type='text'
           value={username}
           name='Username'
@@ -69,13 +70,14 @@ const App = () => {
       <div>
         Password
         <input
+          id='password-input'
           type='password'
           value={password}
           name='Password'
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type='submit'>Login</button>
+      <button id='login-button' type='submit'>Login</button>
     </form>
   );
 
