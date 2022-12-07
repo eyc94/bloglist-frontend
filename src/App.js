@@ -11,9 +11,6 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
-  const [newTitle, setNewTitle] = useState('');
-  const [newAuthor, setNewAuthor] = useState('');
-  const [newUrl, setNewUrl] = useState('');
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -87,33 +84,17 @@ const App = () => {
   const blogForm = () => (
     <Togglable buttonLabel='New Blog' ref={blogFormRef}>
       <BlogForm
-        onSubmit={addBlog}
-        title={newTitle}
-        author={newAuthor}
-        url={newUrl}
-        handleTitleChange={({ target }) => setNewTitle(target.value)}
-        handleAuthorChange={({ target }) => setNewAuthor(target.value)}
-        handleUrlChange={({ target }) => setNewUrl(target.value)}
+        createBlog={addBlog}
       />
     </Togglable>
   );
 
-  const addBlog = (event) => {
-    event.preventDefault();
-    const blogObject = {
-      title: newTitle,
-      author: newAuthor,
-      url: newUrl,
-    };
-
+  const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility();
     blogService
       .create(blogObject)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog));
-        setNewTitle('');
-        setNewAuthor('');
-        setNewUrl('');
         setSuccessMessage(`Added ${returnedBlog.title} by ${returnedBlog.author}`);
         setTimeout(() => {
           setSuccessMessage(null);
