@@ -23,15 +23,15 @@ test('renders blog title and author but not url and likes by default', () => {
     password: 'password',
   };
 
-  const mockSetBlogsHandler = jest.fn();
-  const blogs = [];
+  const mockLikeHandler = jest.fn();
+  const mockRemoveHandler = jest.fn();
   
   const { container } = render(
     <Blog
       blog={blog}
-      blogs={blogs}
-      setBlogs={mockSetBlogsHandler}
       user={user}
+      likeHandler={mockLikeHandler}
+      removeHandler={mockRemoveHandler}
     />
   );
   const div = container.querySelector('.default-blog');
@@ -59,15 +59,15 @@ test('renders blog url and likes after the view button is clicked', async () => 
     password: 'password',
   };
 
-  const mockSetBlogsHandler = jest.fn();
-  const blogs = [];
+  const mockLikeHandler = jest.fn();
+  const mockRemoveHandler = jest.fn();
   
   const { container } = render(
     <Blog
       blog={blog}
-      blogs={blogs}
-      setBlogs={mockSetBlogsHandler}
       user={user}
+      likeHandler={mockLikeHandler}
+      removeHandler={mockRemoveHandler}
     />
   );
 
@@ -100,16 +100,15 @@ test('calls like handler twice when the user clicks "like" twice', async () => {
     password: 'password',
   };
 
-  const mockSetBlogsHandler = jest.fn();
   const mockLikeHandler = jest.fn();
-  const blogs = [];
+  const mockRemoveHandler = jest.fn();
   
-  const { container } = render(
+  render(
     <Blog
       blog={blog}
-      blogs={blogs}
-      setBlogs={mockSetBlogsHandler}
       user={user}
+      likeHandler={mockLikeHandler}
+      removeHandler={mockRemoveHandler}
     />
   );
 
@@ -123,5 +122,3 @@ test('calls like handler twice when the user clicks "like" twice', async () => {
 
   expect(mockLikeHandler.mock.calls).toHaveLength(2);
 });
-
-// Within 3 days: FEDEX/UPS - 833793222
