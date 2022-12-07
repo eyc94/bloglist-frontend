@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import blogService from '../services/blogs';
 import PropTypes from 'prop-types';
 
-const Blog = ({ blog, blogs, setBlogs, user }) => {
+const Blog = ({ blog, user, likeHandler, removeHandler }) => {
   const [detailVisible, setDetailVisible] = useState(false);
 
   const showWhenVisible = { display: detailVisible ? '' : 'none' };
@@ -21,28 +20,6 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
     setDetailVisible(!detailVisible);
   };
 
-  const handleLikeButton = (id) => {
-    const changedBlog = {
-      ...blog,
-      user: blog.user.id,
-      likes: blog.likes + 1,
-    };
-
-    blogService
-      .update(blog.id, changedBlog)
-      .then(returnedBlog => {
-        setBlogs(blogs.map(blog => blog.id !== id ? blog : returnedBlog));
-      });
-  };
-
-  const handleRemoveButton = async (id) => {
-    const deleteMessage = `Remove blog ${blog.title} by ${blog.author} ?`;
-    if (window.confirm(deleteMessage)) {
-      await blogService.del(id);
-      setBlogs(blogs.filter(b => b.id !== id));
-    }
-  };
-
   return (
     <div style={blogStyle}>
       <div style={hideWhenVisible} className='default-blog'>
@@ -52,8 +29,8 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
         <div>Title: {blog.title} <button onClick={toggleVisibility}>Hide</button></div>
         <div>Author: {blog.author}</div>
         <div>URL: {blog.url}</div>
-        <div>Likes: {blog.likes} <button onClick={() => handleLikeButton(blog.id)}>like</button></div>
-        <button style={showIfAuthor} onClick={() => handleRemoveButton(blog.id)}>Remove</button>
+        <div>Likes: {blog.likes} <button onClick={likeHandler}>like</button></div>
+        <button style={showIfAuthor} onClick={removeHandler}>Remove</button>
       </div>
     </div>
   );
@@ -61,8 +38,8 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
 
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
-  setBlogs: PropTypes.func.isRequired,
-  blogs: PropTypes.array.isRequired,
+  likeHandler: PropTypes.func.isRequired,
+  removeHandler: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 
