@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import blogService from '../services/blogs';
 
-const Blog = ({ blog, blogs, setBlogs }) => {
+const Blog = ({ blog, blogs, setBlogs, user }) => {
   const [detailVisible, setDetailVisible] = useState(false);
 
   const showWhenVisible = { display: detailVisible ? '' : 'none' };
   const hideWhenVisible = { display: detailVisible ? 'none' : '' };
+  const showIfAuthor = { display: blog.user.username === user.username ? '' : 'none' };
 
   const blogStyle = {
     paddingTop: 10,
@@ -33,6 +34,14 @@ const Blog = ({ blog, blogs, setBlogs }) => {
       });
   };
 
+  const handleRemoveButton = async (id) => {
+    const deleteMessage = `Remove blog ${blog.title} by ${blog.author} ?`;
+    if (window.confirm(deleteMessage)) {
+      await blogService.del(id);
+      setBlogs(blogs.filter(b => b.id !== id));
+    }
+  };
+
   return (
     <div style={blogStyle}>
       <div style={hideWhenVisible}>
@@ -43,6 +52,7 @@ const Blog = ({ blog, blogs, setBlogs }) => {
         <div>Author: {blog.author}</div>
         <div>URL: {blog.url}</div>
         <div>Likes: {blog.likes} <button onClick={() => handleLikeButton(blog.id)}>like</button></div>
+        <button style={showIfAuthor} onClick={() => handleRemoveButton(blog.id)}>Remove</button>
       </div>
     </div>
   );
