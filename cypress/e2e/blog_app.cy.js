@@ -32,4 +32,21 @@ describe('Blog app', function() {
       cy.get('.error').should('have.css', 'color', 'rgb(255, 0, 0)');
     });
   });
+
+  describe('When logged in', function() {
+    beforeEach(function() {
+      cy.get('#username-input').type('admin');
+      cy.get('#password-input').type('password');
+      cy.get('#login-button').click();
+    });
+
+    it('A blog can be created', function() {
+      cy.contains('New Blog').click();
+      cy.get('#title-input').type('test title');
+      cy.get('#author-input').type('test author');
+      cy.get('#url-input').type('www.sample.com');
+      cy.get('#new-blog-button').click();
+      cy.contains('test title test author');
+    });
+  });
 });
