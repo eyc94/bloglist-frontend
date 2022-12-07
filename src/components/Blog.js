@@ -6,6 +6,8 @@ const Blog = ({ blog, user, likeHandler, removeHandler }) => {
 
   const showWhenVisible = { display: detailVisible ? '' : 'none' };
   const hideWhenVisible = { display: detailVisible ? 'none' : '' };
+  console.log('blog:', blog);
+  console.log('user:', user);
   const showIfAuthor = { display: blog.user.username === user.username ? '' : 'none' };
 
   const blogStyle = {

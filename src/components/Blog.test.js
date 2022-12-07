@@ -25,7 +25,7 @@ test('renders blog title and author but not url and likes by default', () => {
 
   const mockLikeHandler = jest.fn();
   const mockRemoveHandler = jest.fn();
-  
+
   const { container } = render(
     <Blog
       blog={blog}
@@ -61,7 +61,7 @@ test('renders blog url and likes after the view button is clicked', async () => 
 
   const mockLikeHandler = jest.fn();
   const mockRemoveHandler = jest.fn();
-  
+
   const { container } = render(
     <Blog
       blog={blog}
@@ -102,7 +102,7 @@ test('calls like handler twice when the user clicks "like" twice', async () => {
 
   const mockLikeHandler = jest.fn();
   const mockRemoveHandler = jest.fn();
-  
+
   render(
     <Blog
       blog={blog}
