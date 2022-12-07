@@ -29,6 +29,7 @@ describe('Blog app', function() {
       cy.get('#login-button').click();
 
       cy.contains('Wrong username or password');
+      cy.get('html').should('not.contain', 'owner logged in');
       cy.get('.error').should('have.css', 'color', 'rgb(255, 0, 0)');
     });
   });
@@ -47,6 +48,22 @@ describe('Blog app', function() {
       cy.get('#url-input').type('www.sample.com');
       cy.get('#new-blog-button').click();
       cy.contains('test title test author');
+    });
+
+    describe('and a note exists', function() {
+      beforeEach(function() {
+        cy.contains('New Blog').click();
+        cy.get('#title-input').type('test title');
+        cy.get('#author-input').type('test author');
+        cy.get('#url-input').type('www.sample.com');
+        cy.get('#new-blog-button').click();
+      });
+
+      it('user can like a blog', function() {
+        cy.contains('View').click();
+        cy.contains('like').click();
+        cy.contains('Likes: 1');
+      });
     });
   });
 });
