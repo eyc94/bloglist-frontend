@@ -64,6 +64,12 @@ describe('Blog app', function() {
         cy.contains('like').click();
         cy.contains('Likes: 1');
       });
+
+      it('user can delete their blog', function() {
+        cy.contains('View').click();
+        cy.contains('Remove').click();
+        cy.get('html').should('not.contain', 'test title test author');
+      });
     });
   });
 });
