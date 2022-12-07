@@ -80,3 +80,48 @@ test('renders blog url and likes after the view button is clicked', async () => 
   expect(div).toHaveTextContent(`${blog.likes}`);
   expect(div).not.toHaveStyle('display: none');
 });
+
+test('calls like handler twice when the user clicks "like" twice', async () => {
+  const blog = {
+    title: 'Sample Blog',
+    author: 'Sample Author',
+    url: 'https://www.google.com',
+    likes: 10,
+    user: {
+      username: 'admin',
+      name: 'Admin',
+      id: '62c7e7ee9ff8b1bf39fdcf72',
+    },
+  };
+
+  const user = {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVjaGluIiwiaWQiOiI2MmM3ZTdlZTlmZjhiMWJmMzlmZGNmNzIiLCJpYXQiOjE2NTc0NTYwNjB9',
+    username: 'admin',
+    password: 'password',
+  };
+
+  const mockSetBlogsHandler = jest.fn();
+  const mockLikeHandler = jest.fn();
+  const blogs = [];
+  
+  const { container } = render(
+    <Blog
+      blog={blog}
+      blogs={blogs}
+      setBlogs={mockSetBlogsHandler}
+      user={user}
+    />
+  );
+
+  const mockUser = userEvent.setup();
+  const viewButton = screen.getByText('View');
+  await mockUser.click(viewButton);
+
+  const likeButton = screen.getByText('like');
+  await mockUser.click(likeButton);
+  await mockUser.click(likeButton);
+
+  expect(mockLikeHandler.mock.calls).toHaveLength(2);
+});
+
+// Within 3 days: FEDEX/UPS - 833793222
