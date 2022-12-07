@@ -49,7 +49,7 @@ const App = () => {
       }, 5000);
     }
   };
-  
+
   const handleLogout = () => {
     window.localStorage.removeItem('loggedBlogappUser');
     setUser(null);
@@ -118,12 +118,12 @@ const App = () => {
       <Notification successMessage={successMessage} errorMessage={errorMessage} />
       <p>{user.name} logged in <button onClick={handleLogout}>Logout</button></p>
       {blogForm()}
-      
+
       {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
         <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} user={user} />
       )}
     </div>
   );
-}
+};
 
 export default App;
