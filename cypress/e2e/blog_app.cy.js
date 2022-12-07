@@ -50,25 +50,74 @@ describe('Blog app', function() {
       cy.contains('test title test author');
     });
 
-    describe('and a note exists', function() {
+    describe('and several blogs exists', function() {
       beforeEach(function() {
         cy.contains('New Blog').click();
-        cy.get('#title-input').type('test title');
-        cy.get('#author-input').type('test author');
-        cy.get('#url-input').type('www.sample.com');
+        cy.get('#title-input').type('firsttitle');
+        cy.get('#author-input').type('firstauthor');
+        cy.get('#url-input').type('www.firsturl.com');
         cy.get('#new-blog-button').click();
+
+        cy.contains('New Blog').click();
+        cy.get('#title-input').type('secondtitle');
+        cy.get('#author-input').type('secondauthor');
+        cy.get('#url-input').type('www.secondurl.com');
+        cy.get('#new-blog-button').click();
+
+        cy.contains('New Blog').click();
+        cy.get('#title-input').type('thirdtitle');
+        cy.get('#author-input').type('thirdauthor');
+        cy.get('#url-input').type('www.thirdurl.com');
+        cy.get('#new-blog-button').click();
+
+        cy.contains('firsttitle').find('button').should('contain', 'View').click();
+        cy.contains('firsttitle').parent().find('button').should('contain', 'like').as('1like');
+        cy.contains('firsttitle').parent().find('button').should('contain', 'Remove').as('1remove');
+
+
+        cy.contains('secondtitle').find('button').should('contain', 'View').click();
+        cy.contains('secondtitle').parent().find('button').should('contain', 'like').as('2like');
+        cy.contains('secondtitle').parent().find('button').should('contain', 'Remove').as('2remove');
+
+
+        cy.contains('thirdtitle').find('button').should('contain', 'View').click();
+        cy.contains('thirdtitle').parent().find('button').should('contain', 'like').as('3like');
+        cy.contains('thirdtitle').parent().find('button').should('contain', 'Remove').as('3remove');
       });
 
       it('user can like a blog', function() {
-        cy.contains('View').click();
-        cy.contains('like').click();
+        cy.get('@1like').contains('like').as('like1');
+        cy.get('@like1').click();
         cy.contains('Likes: 1');
       });
 
       it('user can delete their blog', function() {
-        cy.contains('View').click();
-        cy.contains('Remove').click();
-        cy.get('html').should('not.contain', 'test title test author');
+        cy.get('@1remove').contains('Remove').as('remove1');
+        cy.get('@remove1').click();
+        cy.get('html').should('not.contain', 'firsttitle firstauthor');
+      });
+
+      it('they are sorted in the proper order', function() {
+        cy.get('@1like').contains('like').as('like1');
+        cy.get('@2like').contains('like').as('like2');
+        cy.get('@3like').contains('like').as('like3');
+
+        cy.get('@like1').click();
+        cy.wait(400);
+        cy.get('@like2').click();
+        cy.wait(400);
+        cy.get('@like2').click();
+        cy.wait(400);
+        cy.get('@like3').click();
+        cy.wait(400);
+        cy.get('@like3').click();
+        cy.wait(400);
+        cy.get('@like3').click();
+        cy.wait(400);
+
+        cy.get('.blog').eq(0).should('contain', 'thirdtitle');
+        cy.get('.blog').eq(1).should('contain', 'secondtitle');
+        cy.get('.blog').eq(2).should('contain', 'firsttitle');
       });
     });
   });
