@@ -6,7 +6,7 @@ const Notification = ({ successMessage, errorMessage }) => {
     borderStyle: 'solid',
     borderRadius: 5,
     padding: 10,
-    marginBottom: 10
+    marginBottom: 10,
   };
 
   const errorStyle = {
@@ -16,7 +16,7 @@ const Notification = ({ successMessage, errorMessage }) => {
     borderStyle: 'solid',
     borderRadius: 5,
     padding: 10,
-    marginBottom: 10
+    marginBottom: 10,
   };
 
   if (successMessage) {
@@ -35,9 +35,7 @@ const Notification = ({ successMessage, errorMessage }) => {
     );
   }
 
-  return (
-    <></>
-  );
+  return <></>;
 };
 
 export default Notification;

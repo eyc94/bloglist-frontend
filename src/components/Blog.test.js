@@ -18,7 +18,8 @@ test('renders blog title and author but not url and likes by default', () => {
   };
 
   const user = {
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVjaGluIiwiaWQiOiI2MmM3ZTdlZTlmZjhiMWJmMzlmZGNmNzIiLCJpYXQiOjE2NTc0NTYwNjB9',
+    token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVjaGluIiwiaWQiOiI2MmM3ZTdlZTlmZjhiMWJmMzlmZGNmNzIiLCJpYXQiOjE2NTc0NTYwNjB9',
     username: 'admin',
     password: 'password',
   };
@@ -32,7 +33,7 @@ test('renders blog title and author but not url and likes by default', () => {
       user={user}
       likeHandler={mockLikeHandler}
       removeHandler={mockRemoveHandler}
-    />
+    />,
   );
   const div = container.querySelector('.default-blog');
   expect(div).toHaveTextContent(`${blog.title} ${blog.author}`);
@@ -54,7 +55,8 @@ test('renders blog url and likes after the view button is clicked', async () => 
   };
 
   const user = {
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVjaGluIiwiaWQiOiI2MmM3ZTdlZTlmZjhiMWJmMzlmZGNmNzIiLCJpYXQiOjE2NTc0NTYwNjB9',
+    token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVjaGluIiwiaWQiOiI2MmM3ZTdlZTlmZjhiMWJmMzlmZGNmNzIiLCJpYXQiOjE2NTc0NTYwNjB9',
     username: 'admin',
     password: 'password',
   };
@@ -68,7 +70,7 @@ test('renders blog url and likes after the view button is clicked', async () => 
       user={user}
       likeHandler={mockLikeHandler}
       removeHandler={mockRemoveHandler}
-    />
+    />,
   );
 
   const mockUser = userEvent.setup();
@@ -95,7 +97,8 @@ test('calls like handler twice when the user clicks "like" twice', async () => {
   };
 
   const user = {
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVjaGluIiwiaWQiOiI2MmM3ZTdlZTlmZjhiMWJmMzlmZGNmNzIiLCJpYXQiOjE2NTc0NTYwNjB9',
+    token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVjaGluIiwiaWQiOiI2MmM3ZTdlZTlmZjhiMWJmMzlmZGNmNzIiLCJpYXQiOjE2NTc0NTYwNjB9',
     username: 'admin',
     password: 'password',
   };
@@ -109,7 +112,7 @@ test('calls like handler twice when the user clicks "like" twice', async () => {
       user={user}
       likeHandler={mockLikeHandler}
       removeHandler={mockRemoveHandler}
-    />
+    />,
   );
 
   const mockUser = userEvent.setup();

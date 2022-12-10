@@ -6,9 +6,9 @@ const Blog = ({ blog, user, likeHandler, removeHandler }) => {
 
   const showWhenVisible = { display: detailVisible ? '' : 'none' };
   const hideWhenVisible = { display: detailVisible ? 'none' : '' };
-  console.log('blog:', blog);
-  console.log('user:', user);
-  const showIfAuthor = { display: blog.user.username === user.username ? '' : 'none' };
+  const showIfAuthor = {
+    display: blog.user.username === user.username ? '' : 'none',
+  };
 
   const blogStyle = {
     paddingTop: 10,
@@ -25,14 +25,21 @@ const Blog = ({ blog, user, likeHandler, removeHandler }) => {
   return (
     <div style={blogStyle} className='blog'>
       <div style={hideWhenVisible} className='default-blog'>
-        {blog.title} {blog.author} <button onClick={toggleVisibility}>View</button>
+        {blog.title} {blog.author}{' '}
+        <button onClick={toggleVisibility}>View</button>
       </div>
       <div style={showWhenVisible} className='detail-blog'>
-        <div>Title: {blog.title} <button onClick={toggleVisibility}>Hide</button></div>
+        <div>
+          Title: {blog.title} <button onClick={toggleVisibility}>Hide</button>
+        </div>
         <div>Author: {blog.author}</div>
         <div>URL: {blog.url}</div>
-        <div>Likes: {blog.likes} <button onClick={likeHandler}>like</button></div>
-        <button style={showIfAuthor} onClick={removeHandler}>Remove</button>
+        <div>
+          Likes: {blog.likes} <button onClick={likeHandler}>like</button>
+        </div>
+        <button style={showIfAuthor} onClick={removeHandler}>
+          Remove
+        </button>
       </div>
     </div>
   );

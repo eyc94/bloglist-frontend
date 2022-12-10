@@ -8,7 +8,7 @@ test('blog form handler called with correct details on blog creation', async () 
   const createBlog = jest.fn();
   const mockUser = userEvent.setup();
 
-  render(<BlogForm createBlog={createBlog}/>);
+  render(<BlogForm createBlog={createBlog} />);
 
   const titleInput = screen.getByPlaceholderText('write title here...');
   const authorInput = screen.getByPlaceholderText('write author here...');
